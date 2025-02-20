@@ -41,6 +41,8 @@ if __name__ == "__main__":
     loguru.logger.info("Creating data directory if it does not exist")
     try:
         os.makedirs("data", exist_ok=True)
+        loguru.logger.info("made data directory check")
+
     except Exception as e:
         loguru.logger.error(f"Failed to create data directory: {e}")
         sys.exit(1)
