@@ -12,6 +12,10 @@ import bs4
 import requests
 import loguru
 
+ headers = {
+        "User-Agent": "cis3500-scraper"
+    }
+    req = requests.get("https://www.thedp.com", headers=headers)
 
 def scrape_data_point():
     """
