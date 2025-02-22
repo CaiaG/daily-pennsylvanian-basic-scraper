@@ -1,6 +1,14 @@
 # Modifications for HW2
 I modified the scraper to extract all article titles and their URLs from the Track & Field section of The Daily Pennsylvanian. After inspecting the page elements I found that all the linked articles were listed as <h3 class="standard-link"> elements. This update scrapes more content while maintaining a structured output.
 
+# Schedule syntax
+schedule:
+  - cron: "0 20 * * *"  # Runs daily at 8 PM UTC
+  - syntax is: minute(0-59) hour(0-23) dayofmonth(1-31) month(1-12) dayofweek(0-6)
+  - * represents wildcards which allows for every value of those fields to be included
+my changes:
+  - cron: "0 7,19 */2 * *"  # Runs at 7am and 7pm every other day
+
 # Basic Git Scraper Template
 
 This template provides a starting point for **git scraping**—the technique of scraping data from websites and automatically committing it to a Git repository using workflows, [coined by Simon Willison](https://simonwillison.net/2020/Oct/9/git-scraping/).
