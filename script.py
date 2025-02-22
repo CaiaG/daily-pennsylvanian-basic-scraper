@@ -32,10 +32,25 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        target_element = soup.find("a", class_="frontpage-link")
-        data_point = "" if target_element is None else target_element.text
-        loguru.logger.info(f"Data point: {data_point}")
-        return data_point
+
+        articles = soup.find_all('h3', class_='standard-link')
+
+        extracted_data = []
+        for article in articles:
+            link = article.find('a')
+            if link:
+                article_text = link.get_text(strip=True)
+                article_url = link['href']
+                extracted_data.append({"title": article_text, "url": article_url})
+
+        for data in extracted_data:
+            loguru.logger.info(f"Title: {data['title']} | URL: {data['url']}")
+
+        return extracted_data     
+        # target_element = soup.find("a", class_="frontpage-link")
+        # data_point = "" if target_element is None else target_element.text
+        # loguru.logger.info(f"Data point: {data_point}")
+        # return data_point
 
 
 if __name__ == "__main__":
