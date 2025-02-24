@@ -25,7 +25,7 @@ def scrape_data_point():
         "User-Agent": "cis3500-scraper"
     }
     # req = requests.get("https://www.thedp.com", headers=headers)
-    req = requests.get("https://www.thedp.com/section/track", headers=headers)
+    req = requests.get("https://www.thedp.com/section/news", headers=headers)
 
     loguru.logger.info(f"Request URL: {req.url}")
     loguru.logger.info(f"Request status code: {req.status_code}")
@@ -48,10 +48,18 @@ def scrape_data_point():
         #     loguru.logger.info(f"Title: {data['title']} | URL: {data['url']}")
 
         # return extracted_data     
-        target_element = soup.find("a", class_="frontpage-link")
-        data_point = "" if target_element is None else target_element.text
-        loguru.logger.info(f"Data point: {data_point}")
-        return data_point
+        # target_element = soup.find("a", class_="frontpage-link")
+        # data_point = "" if target_element is None else target_element.text
+        # loguru.logger.info(f"Data point: {data_point}")
+
+        # for cont. integration - extracting first headline from news page
+        first_article = soup.find("h3", class_="headline")
+
+        if first_article:
+            headline_text = first_article.get_text(strip=True)
+            loguru.logger.info(f"Scraped Headline: {headline_text}")
+            return headline_text
+        return ""
 
 
 if __name__ == "__main__":
